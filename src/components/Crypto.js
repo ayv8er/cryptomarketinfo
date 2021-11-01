@@ -11,40 +11,46 @@ const Crypto = (props) => {
   };
 
   return (
-    <tr>
-      <td>
+    <tr style={{ border: "1px solid black" }}>
+      <td style={{ padding: "20px 20px" }}>
         <span>
           <input
             type="button"
             className="addFavButton"
-            value=""
+            value="Track"
             onClick={handleClick}
           />
         </span>
       </td>
-      <td>{props.crypto.market_cap_rank}</td>
-      <td>
+      <td style={{ padding: "20px 20px" }}>{props.crypto.market_cap_rank}</td>
+      <td style={{ padding: "20px 20px" }}>
         {props.crypto.name}
         <span style={{ color: "grey" }}>
           {" "}
           {props.crypto.symbol.toUpperCase()}
         </span>
       </td>
-      <td>${props.crypto.current_price.toLocaleString()}</td>
-      <td>
+      <td style={{ padding: "20px 20px" }}>
+        ${props.crypto.current_price.toFixed(2)}
+      </td>
+      <td style={{ padding: "20px 20px" }}>
         {props.crypto.price_change_percentage_24h > 0 ? (
           <span style={{ color: "green" }}>
-            {props.crypto.price_change_percentage_24h}
+            {`${props.crypto.price_change_percentage_24h.toFixed(2)}%`}
           </span>
         ) : (
           <span style={{ color: "red" }}>
-            {props.crypto.price_change_percentage_24h}
+            {`${props.crypto.price_change_percentage_24h.toFixed(2)}%`}
           </span>
         )}
       </td>
-      <td>${props.crypto.market_cap.toLocaleString()}</td>
-      <td>{props.crypto.circulating_supply.toLocaleString()}</td>
-      <td>
+      <td style={{ padding: "20px 20px", textAlign: "right" }}>
+        ${props.crypto.market_cap.toLocaleString()}
+      </td>
+      <td style={{ padding: "20px 20px", textAlign: "right" }}>
+        {props.crypto.circulating_supply.toLocaleString()}
+      </td>
+      <td style={{ padding: "20px 20px", textAlign: "right" }}>
         {props.crypto.total_supply &&
           props.crypto.total_supply.toLocaleString()}
       </td>

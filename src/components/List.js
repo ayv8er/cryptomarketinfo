@@ -7,12 +7,11 @@ import Search from "./Search";
 import { getCoinData } from "../actions/listAction";
 
 const List = (props) => {
-  console.log(props);
   const { cryptos, getCoinData } = props;
 
   useEffect(() => {
     getCoinData();
-  }, []);
+  });
 
   return (
     <section>
@@ -21,7 +20,7 @@ const List = (props) => {
       </div>
       <table>
         <thead>
-          <tr>
+          <tr style={{ border: "1px solid black" }}>
             <th></th>
             <th>#</th>
             <th>Name</th>
