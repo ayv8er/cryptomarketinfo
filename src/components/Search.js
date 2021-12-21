@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 import { searchCrypto } from "../actions/listAction";
-import "./Components.css";
+import "../index.css";
 
 const Search = (props) => {
   const [state, setState] = useState("");

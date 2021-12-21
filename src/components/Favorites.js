@@ -3,20 +3,18 @@ import { connect } from "react-redux";
 
 import Fav from "./Fav";
 
-import "./Components.css";
+import "../index.css";
 
 const Favorites = (props) => {
   return (
-    <>
+    <section className="favContainer">
       <div className="favHeader">
         <h3> Favorites Price Tracker </h3>
       </div>
-      <div>
-        {props.favorites.map((fav) => {
-          return <Fav key={fav.id} fav={fav} />;
-        })}
-      </div>
-    </>
+      {props.favorites.map((fav) => {
+        return <Fav key={fav.id} fav={fav} />;
+      })}
+    </section>
   );
 };
 

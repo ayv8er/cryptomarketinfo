@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import { addFavorites } from "../actions/favoritesAction";
 
-import "./Components.css";
+import "../index.css";
 
 const Crypto = (props) => {
   const handleClick = () => {
@@ -34,13 +34,13 @@ const Crypto = (props) => {
         ${props.crypto.current_price.toFixed(2)}
       </td>
       <td style={{ padding: "20px 20px" }}>
-        {props.crypto.price_change_percentage_24h > 0 ? (
-          <span style={{ color: "green" }}>
-            {`${props.crypto.price_change_percentage_24h.toFixed(2)}%`}
+        {props.crypto.price_change_percentage_24h < 0 ? (
+          <span style={{ color: "red" }}>
+            {`${props.crypto.price_change_percentage_24h}%`}
           </span>
         ) : (
-          <span style={{ color: "red" }}>
-            {`${props.crypto.price_change_percentage_24h.toFixed(2)}%`}
+          <span style={{ color: "green" }}>
+            {`${props.crypto.price_change_percentage_24h}%`}
           </span>
         )}
       </td>

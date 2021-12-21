@@ -1,25 +1,24 @@
 import React from "react";
 
+import Navbar from "./components/Navbar";
 import List from "./components/List";
 import Favorites from "./components/Favorites";
 
-import "./App.css";
+import useDarkMode from "./hooks/useDarkMode";
+
+import "./index.css";
 
 function App() {
+  const [darkMode, setDarkMode] = useDarkMode(false);
+
   return (
-    <div>
-      <nav className="header">
-        <h1>Cryptocurrency Price Tracker</h1>
-      </nav>
+    <section className={darkMode ? "dark-mode App" : "App"}>
+      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       <div className="bodyContainer">
-        <div className="favorites">
-          <Favorites />
-        </div>
-        <div className="list">
-          <List />
-        </div>
+        <Favorites />
+        <List />
       </div>
-    </div>
+    </section>
   );
 }
 

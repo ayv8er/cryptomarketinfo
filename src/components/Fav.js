@@ -3,27 +3,20 @@ import { connect } from "react-redux";
 
 import { removeFavorites } from "../actions/favoritesAction";
 
-import "./Components.css";
+import "../index.css";
 
 const Fav = (props) => {
   const handleClick = (id) => {
-    console.log(id);
     props.removeFavorites(id);
   };
   return (
-    <div className="isCurrently">
-      <p style={{ fontSize: "1.2rem" }}>
-        {props.fav.name} is currently
-        <br />
-        <span style={{ fontSize: "2rem" }}> ${props.fav.current_price} </span>
-      </p>
-
+    <section className="favTrackBody">
       <div className="stopTrackBtn">
-        <button onClick={() => handleClick(props.fav.id)}>
-          Stop Tracking {props.fav.name}
-        </button>
+        <button onClick={() => handleClick(props.fav.id)}>Untrack</button>
       </div>
-    </div>
+      <div>{props.fav.name}</div>
+      <div>${props.fav.current_price}</div>
+    </section>
   );
 };
 
@@ -34,5 +27,3 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, { removeFavorites })(Fav);
-
-//props.fav.price_change_24h > 0 ? style={{ fontSize: '2rem', color: 'darkgreen'}} : style={{ fontSize: '2rem', color: 'crimson'}}

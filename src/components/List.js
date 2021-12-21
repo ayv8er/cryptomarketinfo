@@ -2,7 +2,9 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import Crypto from "./Crypto";
-import Search from "./Search";
+// import Search from "./Search";
+
+import "../index.css";
 
 import { getCoinData } from "../actions/listAction";
 
@@ -14,10 +16,10 @@ const List = (props) => {
   });
 
   return (
-    <section>
-      <div>
+    <section className="searchAndIndexBody">
+      {/* <div className='searchBar'>
         <Search />
-      </div>
+      </div> */}
       <table>
         <thead>
           <tr style={{ border: "1px solid black" }}>
@@ -44,8 +46,6 @@ const List = (props) => {
 const mapStateToProps = (state) => {
   return {
     cryptos: state.list.cryptos,
-    isFetching: state.list.isFetching,
-    error: state.list.error,
   };
 };
 
