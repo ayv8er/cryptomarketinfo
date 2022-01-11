@@ -1,27 +1,27 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
 import { searchCrypto } from "../actions/listAction";
 import styled from "styled-components";
 
 const Search = (props) => {
-  const [state, setState] = useState("");
+  const { searchWord, setSearchWord } = props;
 
-  const handleChange = (word) => {
-    setState(word);
-    props.searchCrypto(state);
+  const handleChange = (e) => {
+    e.preventDefault();
+    setSearchWord(e.target.value);
   };
 
   return (
     <StyledSearch>
-      <div className="searchBar">
-        <label>Search Crypto:</label>
+      <div className="search_bar">
+        <label>Search </label>
         <input
           name="search"
           type="text"
-          placeholder="Type in your crypto"
-          value={state}
-          onChange={(e) => handleChange(e.target.value)}
+          placeholder="Start typing..."
+          value={searchWord}
+          onChange={handleChange}
         />
       </div>
     </StyledSearch>
@@ -29,11 +29,14 @@ const Search = (props) => {
 };
 
 const StyledSearch = styled.div`
-  .searchBar {
+  .search_bar {
     display: flex;
-    justify-content: center;
-    margin: 10px;
-    font-size: 1.2rem;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.6rem;
+  }
+  .search_bar label {
+    margin-right: 5%;
   }
 `;
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Navhead from "./components/Navhead";
 import List from "./components/List";
@@ -9,14 +9,20 @@ import styled from "styled-components";
 
 function App() {
   const [darkMode, setDarkMode] = useDarkMode(false);
+  const [searchWord, setSearchWord] = useState("");
 
   return (
     <StyledBody>
       <section className={darkMode ? "dark-mode App" : "App"}>
-        <Navhead darkMode={darkMode} setDarkMode={setDarkMode} />
+        <Navhead
+          searchWord={searchWord}
+          setSearchWord={setSearchWord}
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
+        />
         <div className="bodyContainer">
           <Favorites darkMode={darkMode} />
-          <List darkMode={darkMode} />
+          <List searchWord={searchWord} darkMode={darkMode} />
         </div>
       </section>
     </StyledBody>
