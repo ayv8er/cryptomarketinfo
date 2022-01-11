@@ -13,7 +13,7 @@ const Navhead = (props) => {
   return (
     <StyledNavbar>
       <Navbar className={darkMode ? "darkHeader" : "header"}>
-        <div className={darkMode ? "dark_title" : "title"}>
+        <div className="title">
           <a href="/">Cryptocurrency Price Tracker </a>
         </div>
 
@@ -50,33 +50,25 @@ const StyledNavbar = styled.nav`
     width: 100vw;
     height: 15vh;
     align-items: center;
-    background-color: #1f2022;
+    background-color: #313843;
     font-size: 3rem;
-  }
-  .dark_title {
-    width: 60%;
-  }
-  .dark_title a {
-    text-decoration: none;
-    color: white;
   }
   .title {
     width: 60%;
   }
   .title a {
     text-decoration: none;
-    color: black;
   }
   .toggle_container {
     display: flex;
     flex-flow: column nowrap;
-
     align-items: center;
     width: 30%;
+    height: 100%;
     font-size: 1.6rem;
   }
   .dark-mode__toggle {
-    background: papayawhip;
+    background: white;
     border-radius: 50px;
     border: 1px solid black;
     height: 20px;
@@ -84,7 +76,7 @@ const StyledNavbar = styled.nav`
     width: 40px;
   }
   .toggle {
-    background: #66fcf1;
+    background: #313843;
     border-radius: 50px;
     height: 18px;
     left: 0;
@@ -94,6 +86,7 @@ const StyledNavbar = styled.nav`
   }
   .toggled {
     left: 18px;
+    background: #a1b2c3;
   }
 `;
 

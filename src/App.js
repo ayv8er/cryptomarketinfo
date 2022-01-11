@@ -31,9 +31,15 @@ const StyledBody = styled.div`
     display: flex;
     flex-flow: column nowrap;
   }
+  .App a {
+    color: black;
+  }
   .dark-mode {
     color: #fff;
     background-color: #313843;
+  }
+  .dark-mode a {
+    color: #fff;
   }
   .bodyContainer {
     display: flex;

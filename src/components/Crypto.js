@@ -28,11 +28,11 @@ const Crypto = (props) => {
       <td>
         {props.crypto.price_change_percentage_24h < 0 ? (
           <span style={{ color: "red" }}>
-            {`${props.crypto.price_change_percentage_24h}%`}
+            {`${props.crypto.price_change_percentage_24h.toFixed(2)}%`}
           </span>
         ) : (
           <span style={{ color: "green" }}>
-            {`${props.crypto.price_change_percentage_24h}%`}
+            {`${props.crypto.price_change_percentage_24h.toFixed(2)}%`}
           </span>
         )}
       </td>
