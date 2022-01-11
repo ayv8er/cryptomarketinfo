@@ -7,7 +7,6 @@ const Crypto = (props) => {
   const handleClick = () => {
     props.addFavorites(props.crypto);
   };
-
   return (
     <tr>
       <th scope="row">

@@ -5,11 +5,20 @@ import styled from "styled-components";
 import { getCoinData } from "../actions/listAction";
 
 const List = (props) => {
-  const { cryptos, getCoinData, darkMode } = props;
+  const { cryptos, getCoinData, darkMode, searchWord } = props;
 
   useEffect(() => {
     getCoinData();
   });
+
+  const filteredList = () => {
+    if (searchWord === "") {
+      return cryptos;
+    }
+    return cryptos.filter((crypto) =>
+      crypto.name.toLowerCase().includes(searchWord.trim().toLowerCase())
+    );
+  };
 
   return (
     <StyledList>
@@ -33,7 +42,7 @@ const List = (props) => {
           </tr>
         </thead>
         <tbody>
-          {cryptos.map((crypto) => {
+          {filteredList().map((crypto) => {
             return <Crypto key={crypto.id} crypto={crypto} />;
           })}
         </tbody>
