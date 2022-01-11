@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { Button } from "reactstrap";
 import { addFavorites } from "../actions/favoritesAction";
-import "../index.css";
 
 const Crypto = (props) => {
   const handleClick = () => {
@@ -13,7 +12,9 @@ const Crypto = (props) => {
     <tr>
       <th scope="row">
         <span>
-          <Button onClick={handleClick}>Track</Button>
+          <Button size="lg" onClick={handleClick}>
+            Track
+          </Button>
         </span>
       </th>
       <td>{props.crypto.market_cap_rank}</td>

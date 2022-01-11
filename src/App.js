@@ -30,13 +30,14 @@ const StyledBody = styled.div`
     width: 100vw;
     display: flex;
     flex-flow: column nowrap;
+    background-color: #f8f9fa;
   }
   .App a {
     color: black;
   }
   .dark-mode {
     color: #fff;
-    background-color: #313843;
+    background-color: #212529;
   }
   .dark-mode a {
     color: #fff;
@@ -44,7 +45,7 @@ const StyledBody = styled.div`
   .bodyContainer {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-between;
+    justify-content: space-evenly;
   }
 `;
 

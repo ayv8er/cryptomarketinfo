@@ -1,25 +1,25 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import Crypto from "./Crypto";
-// import Search from "./Search";
-import { Table } from "reactstrap";
-import "../index.css";
-
+import styled from "styled-components";
 import { getCoinData } from "../actions/listAction";
 
 const List = (props) => {
-  const { cryptos, getCoinData } = props;
+  const { cryptos, getCoinData, darkMode } = props;
 
   useEffect(() => {
     getCoinData();
   });
 
   return (
-    <section className="searchAndIndexBody">
-      {/* <div className='searchBar'>
-        <Search />
-      </div> */}
-      <Table hover>
+    <StyledList>
+      <table
+        class={
+          darkMode
+            ? "table table-dark table-hover table-striped"
+            : "table table-light table-hover table-striped"
+        }
+      >
         <thead>
           <tr>
             <th></th>
@@ -37,10 +37,17 @@ const List = (props) => {
             return <Crypto key={crypto.id} crypto={crypto} />;
           })}
         </tbody>
-      </Table>
-    </section>
+      </table>
+    </StyledList>
   );
 };
+
+const StyledList = styled.div`
+  .table {
+    width: 70vw;
+    font-size: 1.6rem;
+  }
+`;
 
 const mapStateToProps = (state) => {
   return {

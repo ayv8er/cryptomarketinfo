@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Navbar } from "reactstrap";
+// import Search from '../components/Search'
 
 const Navhead = (props) => {
   const { darkMode, setDarkMode } = props;
@@ -16,6 +17,10 @@ const Navhead = (props) => {
         <div className="title">
           <a href="/">Cryptocurrency Price Tracker </a>
         </div>
+
+        {/* <div className='searchBar'>
+          <Search />
+        </div> */}
 
         <div className="toggle_container">
           <div>Dark Mode</div>
@@ -50,7 +55,7 @@ const StyledNavbar = styled.nav`
     width: 100vw;
     height: 15vh;
     align-items: center;
-    background-color: #313843;
+    background-color: #212529;
     font-size: 3rem;
   }
   .title {
@@ -76,7 +81,7 @@ const StyledNavbar = styled.nav`
     width: 40px;
   }
   .toggle {
-    background: #313843;
+    background: #212529;
     border-radius: 50px;
     height: 18px;
     left: 0;
@@ -86,7 +91,7 @@ const StyledNavbar = styled.nav`
   }
   .toggled {
     left: 18px;
-    background: #a1b2c3;
+    background: #6c757d;
   }
 `;
 

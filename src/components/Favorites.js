@@ -1,22 +1,46 @@
 import React from "react";
 import { connect } from "react-redux";
-
+import styled from "styled-components";
 import Fav from "./Fav";
 
-import "../index.css";
-
 const Favorites = (props) => {
+  const { darkMode } = props;
+
   return (
-    <section className="favContainer">
-      <div className="favHeader">
-        <h3> Favorites Price Tracker </h3>
+    <StyledFavorites>
+      <div className="favorites_container">
+        <table
+          class={
+            darkMode
+              ? "table table-dark table-hover table-striped"
+              : "table table-light table-hover table-striped"
+          }
+        >
+          <thead>
+            <tr>
+              <th>Favorites</th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>24h %</th>
+            </tr>
+          </thead>
+          <tbody>
+            {props.favorites.map((fav) => {
+              return <Fav key={fav.id} fav={fav} />;
+            })}
+          </tbody>
+        </table>
       </div>
-      {props.favorites.map((fav) => {
-        return <Fav key={fav.id} fav={fav} />;
-      })}
-    </section>
+    </StyledFavorites>
   );
 };
+
+const StyledFavorites = styled.div`
+  .table {
+    width: 25vw;
+    font-size: 1.6rem;
+  }
+`;
 
 const mapStateToProps = (state) => {
   return {
