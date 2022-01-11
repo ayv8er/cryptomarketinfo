@@ -12,7 +12,7 @@ const List = (props) => {
   });
 
   const filteredList = () => {
-    if (searchWord === "") {
+    if (searchWord.trim() === "") {
       return cryptos;
     }
     return cryptos.filter((crypto) =>
