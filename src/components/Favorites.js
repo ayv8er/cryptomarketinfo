@@ -10,7 +10,7 @@ const Favorites = (props) => {
     <StyledFavorites>
       <div className="favorites_container">
         <table
-          class={
+          className={
             darkMode
               ? "table table-dark table-hover table-striped"
               : "table table-light table-hover table-striped"

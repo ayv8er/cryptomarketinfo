@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { Navbar } from "reactstrap";
-// import Search from '../components/Search'
+import Search from "../components/Search";
 
 const Navhead = (props) => {
-  const { darkMode, setDarkMode } = props;
+  const { darkMode, setDarkMode, searchWord, setSearchWord } = props;
 
   const toggleMode = (e) => {
     e.preventDefault();
@@ -14,14 +14,6 @@ const Navhead = (props) => {
   return (
     <StyledNavbar>
       <Navbar className={darkMode ? "darkHeader" : "header"}>
-        <div className="title">
-          <a href="/">Cryptocurrency Price Tracker </a>
-        </div>
-
-        {/* <div className='searchBar'>
-          <Search />
-        </div> */}
-
         <div className="toggle_container">
           <div>Dark Mode</div>
           <div className="dark-mode__toggle">
@@ -30,6 +22,12 @@ const Navhead = (props) => {
               className={darkMode ? "toggle toggled" : "toggle"}
             />
           </div>
+        </div>
+        <div className="title">
+          <a href="/">Cryptocurrency Price Tracker </a>
+        </div>
+        <div className="search_bar">
+          <Search searchWord={searchWord} setSearchWord={setSearchWord} />
         </div>
       </Navbar>
     </StyledNavbar>
@@ -68,7 +66,7 @@ const StyledNavbar = styled.nav`
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    width: 30%;
+    width: 20%;
     height: 100%;
     font-size: 1.6rem;
   }
@@ -92,6 +90,9 @@ const StyledNavbar = styled.nav`
   .toggled {
     left: 18px;
     background: #6c757d;
+  }
+  .search_bar {
+    width: 20%;
   }
 `;
 
