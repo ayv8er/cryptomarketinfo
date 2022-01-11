@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-
 import Crypto from "./Crypto";
 // import Search from "./Search";
-
+import { Table } from "reactstrap";
 import "../index.css";
 
 import { getCoinData } from "../actions/listAction";
@@ -20,9 +19,9 @@ const List = (props) => {
       {/* <div className='searchBar'>
         <Search />
       </div> */}
-      <table>
+      <Table hover>
         <thead>
-          <tr style={{ border: "1px solid black" }}>
+          <tr>
             <th></th>
             <th>#</th>
             <th>Name</th>
@@ -38,7 +37,7 @@ const List = (props) => {
             return <Crypto key={crypto.id} crypto={crypto} />;
           })}
         </tbody>
-      </table>
+      </Table>
     </section>
   );
 };

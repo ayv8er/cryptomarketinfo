@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 import { searchCrypto } from "../actions/listAction";
-import "../index.css";
+import styled from "styled-components";
 
 const Search = (props) => {
   const [state, setState] = useState("");
@@ -13,18 +13,29 @@ const Search = (props) => {
   };
 
   return (
-    <div className="searchBar">
-      <label>Search Crypto:</label>
-      <input
-        name="search"
-        type="text"
-        placeholder="Type in your crypto"
-        value={state}
-        onChange={(e) => handleChange(e.target.value)}
-      />
-    </div>
+    <StyledSearch>
+      <div className="searchBar">
+        <label>Search Crypto:</label>
+        <input
+          name="search"
+          type="text"
+          placeholder="Type in your crypto"
+          value={state}
+          onChange={(e) => handleChange(e.target.value)}
+        />
+      </div>
+    </StyledSearch>
   );
 };
+
+const StyledSearch = styled.div`
+  .searchBar {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    font-size: 1.2rem;
+  }
+`;
 
 const mapStateToProps = (state) => {
   return {

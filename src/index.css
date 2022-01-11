@@ -151,70 +151,6 @@ img {
   width: 100%;
 }
 
-.flex-spacer {
-  width: 100%;
-}
-
-.header {
-  align-items: center;
-  border-bottom: 1px solid rgb(221, 221, 221);
-  display: flex;
-  flex-flow: row nowrap;
-  height: 70px;
-  justify-content: space-around;
-  padding: 0 3%;
-  width: 100%;
-  -webkit-box-shadow: 0px 2px 15px -8px rgba(0, 0, 0, 0.42);
-  -moz-box-shadow: 0px 2px 15px -8px rgba(0, 0, 0, 0.42);
-  box-shadow: 0px 2px 15px -8px rgba(0, 0, 0, 0.42);
-}
-
-.darkHeader {
-  background-color: #1f2022;
-  border: none;
-  align-items: center;
-  /* border-bottom: 1px solid rgb(221, 221, 221); */
-  display: flex;
-  flex-flow: row nowrap;
-  height: 70px;
-  justify-content: space-around;
-  padding: 0 3%;
-  width: 100%;
-  -webkit-box-shadow: 0px 2px 15px -8px rgba(0, 0, 0, 0.42);
-  -moz-box-shadow: 0px 2px 15px -8px rgba(0, 0, 0, 0.42);
-  box-shadow: 0px 2px 15px -8px rgba(0, 0, 0, 0.42);
-}
-
-.dark-mode__toggle {
-  background: papayawhip;
-  border-radius: 50px;
-  border: 1px solid black;
-  height: 20px;
-  position: relative;
-  width: 40px;
-}
-
-.toggle {
-  background: #f68819;
-  border-radius: 50px;
-  height: 18px;
-  left: 0;
-  position: absolute;
-  transition: 0.2s;
-  width: 20px;
-}
-
-.toggled {
-  left: 18px;
-}
-
-.bodyContainer {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-around;
-  margin: 10px;
-}
-
 .searchAndIndexBody {
   display: flex;
   flex-flow: column nowrap;
@@ -252,39 +188,9 @@ img {
   font-size: 1.4rem;
 }
 
-.stopTrackBtn {
-  margin: 10px;
-  font-size: 1rem;
-}
-
 .searchBar {
   display: flex;
   justify-content: center;
   margin: 10px;
   font-size: 1.2rem;
-}
-
-.App {
-  font-family: sans-serif;
-  text-align: center;
-  width: 100%;
-  overflow-x: scroll;
-}
-
-.navbar {
-  align-items: center;
-  border-bottom: 1px solid rgb(221, 221, 221);
-  display: flex;
-  height: 70px;
-  justify-content: space-between;
-  padding: 0 3%;
-  width: 100%;
-  -webkit-box-shadow: 0px 2px 15px -8px rgba(0, 0, 0, 0.42);
-  -moz-box-shadow: 0px 2px 15px -8px rgba(0, 0, 0, 0.42);
-  box-shadow: 0px 2px 15px -8px rgba(0, 0, 0, 0.42);
-}
-
-.dark-mode {
-  color: #fff;
-  background-color: #313843;
 }
