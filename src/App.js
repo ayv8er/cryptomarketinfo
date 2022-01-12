@@ -21,7 +21,7 @@ function App(props) {
           darkMode={darkMode}
           setDarkMode={setDarkMode}
         />
-        <div className="bodyContainer">
+        <div className="body_container">
           {props.favorites.length > 0 && <Favorites darkMode={darkMode} />}
           <List searchWord={searchWord} darkMode={darkMode} />
         </div>
@@ -34,30 +34,24 @@ const StyledBody = styled.div`
   .App {
     font-family: sans-serif;
     text-align: center;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     display: flex;
     flex-flow: column nowrap;
     background-color: #f8f9fa;
-    position: fixed;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    overflow: scroll;
   }
   .App a {
     color: black;
   }
   .dark-mode {
     color: #fff;
-    height: 100vh;
     background-color: #212529;
-    position: fixed;
-    overflow-y: scroll;
-    overflow-x: hidden;
   }
   .dark-mode a {
     color: #fff;
   }
-  .bodyContainer {
+  .body_container {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-evenly;

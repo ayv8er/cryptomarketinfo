@@ -40,6 +40,11 @@ const StyledFavorites = styled.div`
     width: 25vw;
     font-size: 1.6rem;
   }
+  @media screen and (max-width: 995px) {
+    .table {
+      font-size: 1.4rem;
+    }
+  }
 `;
 
 const mapStateToProps = (state) => {
