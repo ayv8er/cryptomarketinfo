@@ -15,11 +15,10 @@ const Search = (props) => {
   return (
     <StyledSearch>
       <div className="search_bar">
-        <label>Search </label>
         <input
           name="search"
           type="text"
-          placeholder="Start typing..."
+          placeholder="Search a Crypto"
           value={searchWord}
           onChange={handleChange}
         />
@@ -30,13 +29,12 @@ const Search = (props) => {
 
 const StyledSearch = styled.div`
   .search_bar {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
     font-size: 1.6rem;
   }
-  .search_bar label {
-    margin-right: 5%;
+  @media screen and (max-width: 995px) {
+    .search_bar {
+      font-size: 1.2rem;
+    }
   }
 `;
 

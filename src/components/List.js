@@ -53,8 +53,13 @@ const List = (props) => {
 
 const StyledList = styled.div`
   .table {
-    width: 70vw;
+    width: 60vw;
     font-size: 1.6rem;
+  }
+  @media screen and (max-width: 995px) {
+    .table {
+      font-size: 1.4rem;
+    }
   }
 `;
 

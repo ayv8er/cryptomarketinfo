@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Navbar } from "reactstrap";
 import Search from "../components/Search";
 
 const Navhead = (props) => {
@@ -13,7 +12,7 @@ const Navhead = (props) => {
 
   return (
     <StyledNavbar>
-      <Navbar className={darkMode ? "darkHeader" : "header"}>
+      <div className={darkMode ? "dark_header" : "header"}>
         <div className="toggle_container">
           <div>Dark Mode</div>
           <div className="dark-mode__toggle">
@@ -29,7 +28,7 @@ const Navhead = (props) => {
         <div className="search_bar">
           <Search searchWord={searchWord} setSearchWord={setSearchWord} />
         </div>
-      </Navbar>
+      </div>
     </StyledNavbar>
   );
 };
@@ -38,26 +37,23 @@ const StyledNavbar = styled.nav`
   .header {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    width: 100vw;
+    width: 100%;
     height: 15vh;
-    align-items: center;
     font-size: 3rem;
   }
-  .darkHeader {
+  .dark_header {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    width: 100vw;
+    width: 100%;
     height: 15vh;
-    align-items: center;
-    background-color: #212529;
     font-size: 3rem;
   }
   .title {
-    width: 60%;
+    width: 50%;
   }
   .title a {
     text-decoration: none;
@@ -66,8 +62,7 @@ const StyledNavbar = styled.nav`
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    width: 20%;
-    height: 100%;
+    width: 10%;
     font-size: 1.6rem;
   }
   .dark-mode__toggle {
@@ -92,7 +87,18 @@ const StyledNavbar = styled.nav`
     background: #6c757d;
   }
   .search_bar {
-    width: 20%;
+    width: 10%;
+  }
+  @media screen and (max-width: 995px) {
+    .header {
+      font-size: 2rem;
+    }
+    .dark_header {
+      font-size: 2rem;
+    }
+    .toggle_container {
+      font-size: 1.2rem;
+    }
   }
 `;
 
