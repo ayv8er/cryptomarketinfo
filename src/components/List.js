@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+
 import Crypto from "./Crypto";
+
 import styled from "styled-components";
 import { getCoinData } from "../actions/listAction";
 
@@ -53,7 +55,6 @@ const List = (props) => {
 
 const StyledList = styled.div`
   .table {
-    width: 60vw;
     font-size: 1.6rem;
   }
   @media screen and (max-width: 995px) {

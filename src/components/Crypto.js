@@ -11,7 +11,7 @@ const Crypto = (props) => {
     <tr>
       <th scope="row">
         <span>
-          <Button size="lg" onClick={handleClick}>
+          <Button variant="secondary" size="lg" onClick={handleClick}>
             Track
           </Button>
         </span>

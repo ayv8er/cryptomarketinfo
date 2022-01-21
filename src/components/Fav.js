@@ -11,23 +11,36 @@ const Fav = (props) => {
     <tr>
       <th scope="row">
         <span>
-          <Button size="lg" onClick={() => handleClick(props.fav.id)}>
-            Untrack
+          <Button variant="secondary" size="lg" onClick={handleClick}>
+            Track
           </Button>
         </span>
       </th>
-      <td>{props.fav.name}</td>
-      <td>${props.fav.current_price}</td>
+      <td>{props.crypto.market_cap_rank}</td>
       <td>
-        {props.fav.price_change_percentage_24h < 0 ? (
+        {props.crypto.name}
+        <span style={{ color: "grey" }}>
+          {" "}
+          {props.crypto.symbol.toUpperCase()}
+        </span>
+      </td>
+      <td>${props.crypto.current_price.toFixed(2)}</td>
+      <td>
+        {props.crypto.price_change_percentage_24h < 0 ? (
           <span style={{ color: "red" }}>
-            {`${props.fav.price_change_percentage_24h.toFixed(2)}%`}
+            {`${props.crypto.price_change_percentage_24h.toFixed(2)}%`}
           </span>
         ) : (
           <span style={{ color: "green" }}>
-            {`${props.fav.price_change_percentage_24h.toFixed(2)}%`}
+            {`${props.crypto.price_change_percentage_24h.toFixed(2)}%`}
           </span>
         )}
+      </td>
+      <td>${props.crypto.market_cap.toLocaleString()}</td>
+      <td>{props.crypto.circulating_supply.toLocaleString()}</td>
+      <td>
+        {props.crypto.total_supply &&
+          props.crypto.total_supply.toLocaleString()}
       </td>
     </tr>
   );

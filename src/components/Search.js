@@ -30,11 +30,7 @@ const Search = (props) => {
 const StyledSearch = styled.div`
   .search_bar {
     font-size: 1.6rem;
-  }
-  @media screen and (max-width: 995px) {
-    .search_bar {
-      font-size: 1.2rem;
-    }
+    margin: 1% 0;
   }
 `;
 

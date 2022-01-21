@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import { Container } from "react-bootstrap";
 
 import Navhead from "./components/Navhead";
-import List from "./components/List";
+import Body from "./components/Body";
+import Login from "./components/Login";
 import Favorites from "./components/Favorites";
 
 import useDarkMode from "./hooks/useDarkMode";
@@ -10,27 +12,22 @@ import styled from "styled-components";
 
 function App(props) {
   const [darkMode, setDarkMode] = useDarkMode(false);
-  const [searchWord, setSearchWord] = useState("");
 
   return (
-    <StyledBody>
-      <div className={darkMode ? "dark-mode App" : "App"}>
-        <Navhead
-          searchWord={searchWord}
-          setSearchWord={setSearchWord}
-          darkMode={darkMode}
-          setDarkMode={setDarkMode}
-        />
-        <div className="body_container">
-          {props.favorites.length > 0 && <Favorites darkMode={darkMode} />}
-          <List searchWord={searchWord} darkMode={darkMode} />
-        </div>
-      </div>
-    </StyledBody>
+    <StyledApp>
+      <Container fluid="true" className={darkMode ? "dark-mode App" : "App"}>
+        <Navhead darkMode={darkMode} setDarkMode={setDarkMode} />
+        <Routes>
+          <Route path="/" element={<Body darkMode={darkMode} />} />
+          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </Container>
+    </StyledApp>
   );
 }
 
-const StyledBody = styled.div`
+const StyledApp = styled.div`
   .App {
     font-family: sans-serif;
     text-align: center;
@@ -44,11 +41,17 @@ const StyledBody = styled.div`
   .App a {
     color: black;
   }
+  .App button {
+    color: black;
+  }
   .dark-mode {
     color: #fff;
     background-color: #212529;
   }
   .dark-mode a {
+    color: #fff;
+  }
+  .dark-mode button {
     color: #fff;
   }
   .body_container {
@@ -58,10 +61,4 @@ const StyledBody = styled.div`
   }
 `;
 
-const mapStateToProps = (state) => {
-  return {
-    favorites: state.favorites.favorites,
-  };
-};
-
-export default connect(mapStateToProps)(App);
+export default App;
