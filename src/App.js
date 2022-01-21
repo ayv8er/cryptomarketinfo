@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Container } from "react-bootstrap";
 
 import Navhead from "./components/Navhead";
 import Body from "./components/Body";
 import Login from "./components/Login";
+import Register from "./components/Register";
 import Favorites from "./components/Favorites";
 
 import useDarkMode from "./hooks/useDarkMode";
 import styled from "styled-components";
 
-function App(props) {
+const App = () => {
   const [darkMode, setDarkMode] = useDarkMode(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   return (
     <StyledApp>
@@ -20,12 +26,29 @@ function App(props) {
         <Routes>
           <Route path="/" element={<Body darkMode={darkMode} />} />
           <Route path="/favorites" element={<Favorites />} />
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={
+              <Login
+                togglePassword={togglePassword}
+                showPassword={showPassword}
+              />
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <Register
+                togglePassword={togglePassword}
+                showPassword={showPassword}
+              />
+            }
+          />
         </Routes>
       </Container>
     </StyledApp>
   );
-}
+};
 
 const StyledApp = styled.div`
   .App {

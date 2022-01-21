@@ -1,12 +1,11 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import { Container, Row, Col, Form, Button, InputGroup } from "react-bootstrap";
 import schema from "../validation/formSchema";
 // import axios from "axios";
 import { Formik } from "formik";
 import styled from "styled-components";
 
-const Login = (props) => {
+const Register = (props) => {
   const { togglePassword, showPassword } = props;
   return (
     <StyledLogin>
@@ -14,7 +13,7 @@ const Login = (props) => {
         <Row className="justify-content-md-center">
           <Col sm={6}>
             <Formik
-              initialValues={{ email: "", password: "" }}
+              initialValues={{ email: "", password: "", confirmPassword: "" }}
               validationSchema={schema}
               onSubmit={(values, { setSubmitting, resetForm }) => {
                 setSubmitting(true);
@@ -70,30 +69,51 @@ const Login = (props) => {
                       <div className="error-message">{errors.password}</div>
                     ) : null}
                   </Form.Group>
+                  <Form.Group className="mb-3" controlId="formPassword">
+                    <Form.Label>Confirm Password</Form.Label>
+                    <InputGroup className="mb-3">
+                      <Form.Control
+                        type={showPassword ? "text" : "password"}
+                        name="confirmPassword"
+                        placeholder="Confirm password"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.confirmPassword}
+                        className={
+                          touched.confirmPassword && errors.confirmPassword
+                            ? "error"
+                            : null
+                        }
+                      />
+                      <InputGroup.Text onClick={togglePassword}>
+                        Show Password
+                      </InputGroup.Text>
+                    </InputGroup>
+                    {touched.confirmPassword && errors.confirmPassword ? (
+                      <div className="error-message">
+                        {errors.confirmPassword}
+                      </div>
+                    ) : null}
+                  </Form.Group>
                   <div className="d-grid gap-2">
                     <Button
                       className="continue-btn"
                       variant="secondary"
                       size="lg"
                       type="submit"
-                      disabled={isSubmitting || errors.email || errors.password}
+                      disabled={
+                        isSubmitting ||
+                        errors.email ||
+                        errors.password ||
+                        errors.confirmPassword
+                      }
                     >
-                      Continue
+                      Create Account
                     </Button>
                   </div>
                 </Form>
               )}
             </Formik>
-          </Col>
-        </Row>
-        <Row className="justify-content-md-center">
-          <Col sm={3}>
-            <div className="register">Don't have an account yet?</div>
-          </Col>
-          <Col sm={3}>
-            <Button variant="secondary" size="lg" as={NavLink} to="/register">
-              Register
-            </Button>
           </Col>
         </Row>
       </Container>
@@ -102,52 +122,52 @@ const Login = (props) => {
 };
 
 const StyledLogin = styled.div`
-  .error {
-    border: 2px solid red;
-  }
-  .error-message {
-    color: red;
-    padding: 0.5rem, 0.25rem;
-    height: 1em;
-    position: absolute;
-    font-size: 1em;
-  }
-  .justify-content-md-center {
-    margin-top: 5%;
-    align-items:center;
-  }
-  .col-sm-6 {
-    padding: 3%;
-    font-size: 1.6rem;
-    text-align: left;
-  }
-  .form-label {
+    .error {
+      border: 2px solid red;
+    }
+    .error-message {
+        color: red;
+        padding: 0.5rem, 0.25rem;
+        height: 1em;
+        position: absolute;
+        font-size: 1em;
+    }
+    .justify-content-md-center {
       margin-top: 5%;
-  }
-  .form-control {
-    display: block;
-    padding: 0.5rem 1rem;
-    font-size: 1.4rem;
-    font-weight: 400;
-    line-height: 1.5;
-    background-clip: padding-box;
-    appearance: none;
-    border-radius: 0.25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-  }
-  .btn {
+      align-items:center;
+    }
+    .col-sm-6 {
+      padding: 3%;
+      font-size: 1.6rem;
+      text-align: left;
+    }
+    .form-label {
+        margin-top: 5%;
+    }
+    .form-control {
+      display: block;
+      padding: 0.5rem 1rem;
       font-size: 1.4rem;
-      font-weight: bold;
-      padding: 2% 5% 2% 5%;
+      font-weight: 400;
+      line-height: 1.5;
+      background-clip: padding-box;
+      appearance: none;
+      border-radius: 0.25rem;
+      transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+    .btn {
+        font-size: 1.4rem;
+        font-weight: bold;
+        padding: 2% 5% 2% 5%;
+    }
+    .continue-btn {
+      margin-top: 5%;
+    }
+    .register {
+      font-size: 1.6rem;
+      text-align:right;
+    }
   }
-  .continue-btn {
-    margin-top: 5%;
-  }
-  .register {
-    font-size: 1.6rem;
-    text-align:right;
-  }
-}
-`;
+  `;
 
-export default Login;
+export default Register;
