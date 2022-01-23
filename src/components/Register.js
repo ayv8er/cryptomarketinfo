@@ -1,12 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Form, Button, InputGroup } from "react-bootstrap";
-import schema from "../validation/formSchema";
-// import axios from "axios";
+import { registerSchema } from "../validation/formSchema";
+import axios from "axios";
 import { Formik } from "formik";
 import styled from "styled-components";
 
 const Register = (props) => {
   const { togglePassword, showPassword } = props;
+  let navigate = useNavigate();
+
   return (
     <StyledLogin>
       <Container fluid>
@@ -14,11 +17,27 @@ const Register = (props) => {
           <Col sm={6}>
             <Formik
               initialValues={{ email: "", password: "", confirmPassword: "" }}
-              validationSchema={schema}
-              onSubmit={(values, { setSubmitting, resetForm }) => {
+              validationSchema={registerSchema}
+              onSubmit={async (values, { setSubmitting, resetForm }) => {
                 setSubmitting(true);
-                resetForm();
-                setSubmitting(false);
+                await axios
+                  .post(
+                    "https://crypto-backend-rjo.herokuapp.com/api/users/register",
+                    {
+                      user_email: values.email,
+                      user_password: values.password,
+                    }
+                  )
+                  .then((res) => {
+                    localStorage.setItem("token", res.data.token);
+                    navigate("/favorites");
+                    resetForm();
+                    setSubmitting(false);
+                    window.location.reload();
+                  })
+                  .catch((err) => {
+                    console.log(err.message);
+                  });
               }}
             >
               {({
@@ -31,7 +50,7 @@ const Register = (props) => {
                 isSubmitting,
               }) => (
                 <Form onSubmit={handleSubmit}>
-                  <Form.Group className="mb-3" controlId="formEmail">
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control
                       type="text"
@@ -47,7 +66,7 @@ const Register = (props) => {
                     ) : null}
                   </Form.Group>
 
-                  <Form.Group className="mb-3" controlId="formPassword">
+                  <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
                     <InputGroup className="mb-3">
                       <Form.Control
@@ -75,7 +94,7 @@ const Register = (props) => {
                       <Form.Control
                         type={showPassword ? "text" : "password"}
                         name="confirmPassword"
-                        placeholder="Confirm password"
+                        placeholder="Re-enter password"
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.confirmPassword}

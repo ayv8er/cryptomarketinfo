@@ -9,13 +9,16 @@ const Crypto = (props) => {
   };
   return (
     <tr>
-      <th scope="row">
-        <span>
-          <Button variant="secondary" size="lg" onClick={handleClick}>
-            Track
-          </Button>
-        </span>
-      </th>
+      {props.isLoggedIn ? (
+        <th scope="row">
+          <span>
+            <Button variant="secondary" size="lg" onClick={handleClick}>
+              Track
+            </Button>
+          </span>
+        </th>
+      ) : null}
+
       <td>{props.crypto.market_cap_rank}</td>
       <td>
         {props.crypto.name}

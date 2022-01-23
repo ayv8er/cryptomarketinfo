@@ -1,13 +1,15 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Container, Row, Col, Form, Button, InputGroup } from "react-bootstrap";
-import schema from "../validation/formSchema";
-// import axios from "axios";
+import { loginSchema } from "../validation/formSchema";
+import axios from "axios";
 import { Formik } from "formik";
 import styled from "styled-components";
 
 const Login = (props) => {
   const { togglePassword, showPassword } = props;
+  let navigate = useNavigate();
+
   return (
     <StyledLogin>
       <Container fluid>
@@ -15,11 +17,27 @@ const Login = (props) => {
           <Col sm={6}>
             <Formik
               initialValues={{ email: "", password: "" }}
-              validationSchema={schema}
-              onSubmit={(values, { setSubmitting, resetForm }) => {
+              validationSchema={loginSchema}
+              onSubmit={async (values, { setSubmitting, resetForm }) => {
                 setSubmitting(true);
-                resetForm();
-                setSubmitting(false);
+                await axios
+                  .post(
+                    "https://crypto-backend-rjo.herokuapp.com/api/users/login",
+                    {
+                      user_email: values.email,
+                      user_password: values.password,
+                    }
+                  )
+                  .then((res) => {
+                    localStorage.setItem("token", res.data.token);
+                    navigate("/favorites");
+                    resetForm();
+                    setSubmitting(false);
+                    window.location.reload();
+                  })
+                  .catch((err) => {
+                    console.log(err.message);
+                  });
               }}
             >
               {({

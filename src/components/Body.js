@@ -7,7 +7,7 @@ import Search from "./Search";
 import styled from "styled-components";
 
 const Body = (props) => {
-  const { darkMode } = props;
+  const { darkMode, isLoggedIn } = props;
   const [searchWord, setSearchWord] = useState("");
 
   return (
@@ -21,6 +21,7 @@ const Body = (props) => {
         <Row className="justify-content-md-center">
           <Col sm={10}>
             <List
+              isLoggedIn={isLoggedIn}
               searchWord={searchWord}
               setSearchWord={setSearchWord}
               darkMode={darkMode}

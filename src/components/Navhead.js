@@ -1,10 +1,17 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { Navbar, Container, Row, Col, Button } from "react-bootstrap";
+import {
+  Navbar,
+  Container,
+  Row,
+  Col,
+  Button,
+  NavDropdown,
+} from "react-bootstrap";
 
 const Navhead = (props) => {
-  const { darkMode, setDarkMode } = props;
+  const { isLoggedIn, darkMode, setDarkMode } = props;
 
   const toggleMode = (e) => {
     e.preventDefault();
@@ -25,14 +32,38 @@ const Navhead = (props) => {
                 />
               </div>
             </Col>
-            <Col sm={8} className={darkMode ? "dark" : null}>
-              <Navbar.Brand href="/">Cryptocurrency Price Tracker</Navbar.Brand>
+            <Col sm={7} className={darkMode ? "dark" : null}>
+              <Navbar.Brand href="/">Crypto Market Cap</Navbar.Brand>
             </Col>
+            {isLoggedIn ? (
+              <Col sm={1}>
+                <NavDropdown
+                  className="dropdown btn btn-secondary btn-lg"
+                  title="Menu"
+                  id="basic-nav-dropdown"
+                >
+                  <NavDropdown.Item as={NavLink} to="/">
+                    All Cryptocurrencies
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={NavLink} to="/favorites">
+                    My Favorites
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item>Under Construction</NavDropdown.Item>
+                </NavDropdown>
+              </Col>
+            ) : null}
 
             <Col sm={2}>
-              <Button variant="secondary" size="lg" as={NavLink} to="/login">
-                Login
-              </Button>
+              {isLoggedIn ? (
+                <Button variant="secondary" size="lg" as={NavLink} to="/logout">
+                  Logout
+                </Button>
+              ) : (
+                <Button variant="secondary" size="lg" as={NavLink} to="/login">
+                  Login
+                </Button>
+              )}
             </Col>
           </Row>
         </Container>
@@ -82,6 +113,16 @@ const StyledNavbar = styled.nav`
   .toggled {
     left: 18px;
     background: #6c757d;
+  }
+  .dropdown-menu a {
+    font-size: 1.4rem;
+    color: black;
+  }
+  .dropdown {
+    font-size: 1.6rem;
+  }
+  .dropdown-menu.show {
+    background-color: silver;
   }
 `;
 

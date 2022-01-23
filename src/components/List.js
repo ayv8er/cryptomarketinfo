@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { getCoinData } from "../actions/listAction";
 
 const List = (props) => {
-  const { cryptos, getCoinData, darkMode, searchWord } = props;
+  const { cryptos, getCoinData, darkMode, searchWord, isLoggedIn } = props;
 
   useEffect(() => {
     getCoinData();
@@ -33,7 +33,7 @@ const List = (props) => {
       >
         <thead>
           <tr>
-            <th></th>
+            {isLoggedIn ? <th></th> : null}
             <th>#</th>
             <th>Name</th>
             <th>Price</th>
@@ -45,7 +45,9 @@ const List = (props) => {
         </thead>
         <tbody>
           {filteredList().map((crypto) => {
-            return <Crypto key={crypto.id} crypto={crypto} />;
+            return (
+              <Crypto key={crypto.id} crypto={crypto} isLoggedIn={isLoggedIn} />
+            );
           })}
         </tbody>
       </table>

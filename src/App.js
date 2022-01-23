@@ -5,6 +5,7 @@ import { Container } from "react-bootstrap";
 import Navhead from "./components/Navhead";
 import Body from "./components/Body";
 import Login from "./components/Login";
+import Logout from "./components/Logout";
 import Register from "./components/Register";
 import Favorites from "./components/Favorites";
 
@@ -12,6 +13,7 @@ import useDarkMode from "./hooks/useDarkMode";
 import styled from "styled-components";
 
 const App = () => {
+  const isLoggedIn = localStorage.getItem("token");
   const [darkMode, setDarkMode] = useDarkMode(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -22,9 +24,16 @@ const App = () => {
   return (
     <StyledApp>
       <Container fluid="true" className={darkMode ? "dark-mode App" : "App"}>
-        <Navhead darkMode={darkMode} setDarkMode={setDarkMode} />
+        <Navhead
+          isLoggedIn={isLoggedIn}
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
+        />
         <Routes>
-          <Route path="/" element={<Body darkMode={darkMode} />} />
+          <Route
+            path="/"
+            element={<Body isLoggedIn={isLoggedIn} darkMode={darkMode} />}
+          />
           <Route path="/favorites" element={<Favorites />} />
           <Route
             path="/login"
@@ -44,6 +53,7 @@ const App = () => {
               />
             }
           />
+          <Route path="/logout" element={<Logout />} />
         </Routes>
       </Container>
     </StyledApp>
