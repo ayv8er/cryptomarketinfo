@@ -24,7 +24,7 @@ const Login = (props) => {
                   .post(
                     "https://crypto-backend-rjo.herokuapp.com/api/users/login",
                     {
-                      user_email: values.email,
+                      user_email: values.email.toLowerCase(),
                       user_password: values.password,
                     }
                   )
