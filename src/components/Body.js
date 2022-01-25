@@ -7,24 +7,23 @@ import Search from "./Search";
 import styled from "styled-components";
 
 const Body = (props) => {
-  const { darkMode, isLoggedIn } = props;
+  const { darkMode } = props;
   const [searchWord, setSearchWord] = useState("");
 
   return (
     <StyledBody>
       <Container fluid="true">
-        <Row className="justify-content-md-center">
-          <Col>
+        <Row xxl xl lg md sm xs className="justify-content-center">
+          <Col xxl={10} xl={10} lg={10} md={10} sm={10} xs={10}>
             <Search searchWord={searchWord} setSearchWord={setSearchWord} />
           </Col>
         </Row>
-        <Row className="justify-content-md-center">
-          <Col sm={10}>
+        <Row xxl xl lg md sm xs className="justify-content-center">
+          <Col xxl={10} xl={10} lg={10} md={10} sm={10} xs={10}>
             <List
-              isLoggedIn={isLoggedIn}
+              darkMode={darkMode}
               searchWord={searchWord}
               setSearchWord={setSearchWord}
-              darkMode={darkMode}
             />
           </Col>
         </Row>

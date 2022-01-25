@@ -5,9 +5,11 @@ import Crypto from "./Crypto";
 
 import styled from "styled-components";
 import { getCoinData } from "../actions/listAction";
+import useToken from "../hooks/useToken";
 
 const List = (props) => {
-  const { cryptos, getCoinData, darkMode, searchWord, isLoggedIn } = props;
+  const { cryptos, getCoinData, darkMode, searchWord } = props;
+  const { token } = useToken();
 
   useEffect(() => {
     getCoinData();
@@ -33,7 +35,7 @@ const List = (props) => {
       >
         <thead>
           <tr>
-            {isLoggedIn ? <th></th> : null}
+            {token ? <th></th> : null}
             <th>#</th>
             <th>Name</th>
             <th>Price</th>
@@ -45,9 +47,7 @@ const List = (props) => {
         </thead>
         <tbody>
           {filteredList().map((crypto) => {
-            return (
-              <Crypto key={crypto.id} crypto={crypto} isLoggedIn={isLoggedIn} />
-            );
+            return <Crypto key={crypto.id} crypto={crypto} />;
           })}
         </tbody>
       </table>

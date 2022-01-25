@@ -7,14 +7,14 @@ import { Formik } from "formik";
 import styled from "styled-components";
 
 const Register = (props) => {
-  const { togglePassword, showPassword } = props;
+  const { setToken, togglePassword, showPassword, darkMode } = props;
   let navigate = useNavigate();
 
   return (
     <StyledLogin>
       <Container fluid>
-        <Row className="justify-content-md-center">
-          <Col sm={6}>
+        <Row className="justify-content-center">
+          <Col xxl={6} xl={6} lg={6} md={6} sm={6} xs={10}>
             <Formik
               initialValues={{ email: "", password: "", confirmPassword: "" }}
               validationSchema={registerSchema}
@@ -29,11 +29,10 @@ const Register = (props) => {
                     }
                   )
                   .then((res) => {
-                    localStorage.setItem("token", res.data.token);
+                    setToken(res.data.token);
                     navigate("/favorites");
                     resetForm();
                     setSubmitting(false);
-                    window.location.reload();
                   })
                   .catch((err) => {
                     console.log(err.message);
@@ -81,7 +80,7 @@ const Register = (props) => {
                         }
                       />
                       <InputGroup.Text onClick={togglePassword}>
-                        Show Password
+                        Show
                       </InputGroup.Text>
                     </InputGroup>
                     {touched.password && errors.password ? (
@@ -105,7 +104,7 @@ const Register = (props) => {
                         }
                       />
                       <InputGroup.Text onClick={togglePassword}>
-                        Show Password
+                        Show
                       </InputGroup.Text>
                     </InputGroup>
                     {touched.confirmPassword && errors.confirmPassword ? (
@@ -117,7 +116,7 @@ const Register = (props) => {
                   <div className="d-grid gap-2">
                     <Button
                       className="continue-btn"
-                      variant="secondary"
+                      variant={darkMode ? "secondary" : "outline-secondary"}
                       size="lg"
                       type="submit"
                       disabled={

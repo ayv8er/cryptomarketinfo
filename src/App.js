@@ -9,11 +9,12 @@ import Logout from "./components/Logout";
 import Register from "./components/Register";
 import Favorites from "./components/Favorites";
 
+import useToken from "./hooks/useToken";
 import useDarkMode from "./hooks/useDarkMode";
 import styled from "styled-components";
 
 const App = () => {
-  const isLoggedIn = localStorage.getItem("token");
+  const { token, setToken } = useToken();
   const [darkMode, setDarkMode] = useDarkMode(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -24,23 +25,21 @@ const App = () => {
   return (
     <StyledApp>
       <Container fluid="true" className={darkMode ? "dark-mode App" : "App"}>
-        <Navhead
-          isLoggedIn={isLoggedIn}
-          darkMode={darkMode}
-          setDarkMode={setDarkMode}
-        />
+        <Navhead token={token} darkMode={darkMode} setDarkMode={setDarkMode} />
         <Routes>
+          <Route path="/" element={<Body darkMode={darkMode} />} />
           <Route
-            path="/"
-            element={<Body isLoggedIn={isLoggedIn} darkMode={darkMode} />}
+            path="/favorites"
+            element={<Favorites darkMode={darkMode} />}
           />
-          <Route path="/favorites" element={<Favorites />} />
           <Route
             path="/login"
             element={
               <Login
+                darkMode={darkMode}
                 togglePassword={togglePassword}
                 showPassword={showPassword}
+                setToken={setToken}
               />
             }
           />
@@ -48,8 +47,10 @@ const App = () => {
             path="/register"
             element={
               <Register
+                darkMode={darkMode}
                 togglePassword={togglePassword}
                 showPassword={showPassword}
+                setToken={setToken}
               />
             }
           />

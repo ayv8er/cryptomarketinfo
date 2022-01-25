@@ -4,8 +4,9 @@ import { Button } from "reactstrap";
 import { removeFavorites } from "../actions/favoritesAction";
 
 const Fav = (props) => {
+  const { fav } = props;
   const handleClick = () => {
-    props.removeFavorites(props.fav.id);
+    props.removeFavorites(fav.id);
   };
   return (
     <tr>
@@ -16,28 +17,26 @@ const Fav = (props) => {
           </Button>
         </span>
       </th>
-      <td>{props.fav.market_cap_rank}</td>
+      <td>{fav.market_cap_rank}</td>
       <td>
-        {props.fav.name}
-        <span style={{ color: "grey" }}> {props.fav.symbol.toUpperCase()}</span>
+        {fav.name}
+        <span style={{ color: "grey" }}> {fav.symbol.toUpperCase()}</span>
       </td>
-      <td>${props.fav.current_price.toFixed(2)}</td>
+      <td>${fav.current_price.toFixed(2)}</td>
       <td>
-        {props.fav.price_change_percentage_24h < 0 ? (
+        {fav.price_change_percentage_24h < 0 ? (
           <span style={{ color: "red" }}>
-            {`${props.fav.price_change_percentage_24h.toFixed(2)}%`}
+            {`${fav.price_change_percentage_24h.toFixed(2)}%`}
           </span>
         ) : (
           <span style={{ color: "green" }}>
-            {`${props.fav.price_change_percentage_24h.toFixed(2)}%`}
+            {`${fav.price_change_percentage_24h.toFixed(2)}%`}
           </span>
         )}
       </td>
-      <td>${props.fav.market_cap.toLocaleString()}</td>
-      <td>{props.fav.circulating_supply.toLocaleString()}</td>
-      <td>
-        {props.fav.total_supply && props.fav.total_supply.toLocaleString()}
-      </td>
+      <td>${fav.market_cap.toLocaleString()}</td>
+      <td>{fav.circulating_supply.toLocaleString()}</td>
+      <td>{fav.total_supply && fav.total_supply.toLocaleString()}</td>
     </tr>
   );
 };

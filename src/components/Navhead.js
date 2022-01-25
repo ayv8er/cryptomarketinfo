@@ -11,7 +11,7 @@ import {
 } from "react-bootstrap";
 
 const Navhead = (props) => {
-  const { isLoggedIn, darkMode, setDarkMode } = props;
+  const { token, darkMode, setDarkMode } = props;
 
   const toggleMode = (e) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ const Navhead = (props) => {
     <StyledNavbar>
       <Navbar sticky="top">
         <Container fluid>
-          <Row className="nav_row">
+          <Row>
             <Col sm={2} className="nav_item_container">
               <div>Dark Mode</div>
               <div className="dark-mode__toggle">
@@ -32,13 +32,18 @@ const Navhead = (props) => {
                 />
               </div>
             </Col>
-            <Col sm={7} className={darkMode ? "dark" : null}>
+            <Col sm={8} className={darkMode ? "dark" : null}>
               <Navbar.Brand href="/">Crypto Market Cap</Navbar.Brand>
             </Col>
-            {isLoggedIn ? (
-              <Col sm={1}>
+
+            <Col sm={2}>
+              {token ? (
                 <NavDropdown
-                  className="dropdown btn btn-secondary btn-lg"
+                  className={
+                    darkMode
+                      ? "btnd btn btn-lg"
+                      : "btn btn-outline-secondary btn-lg"
+                  }
                   title="Menu"
                   id="basic-nav-dropdown"
                 >
@@ -49,18 +54,17 @@ const Navhead = (props) => {
                     My Favorites
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item>Under Construction</NavDropdown.Item>
+                  <NavDropdown.Item as={NavLink} to="/logout">
+                    Logout
+                  </NavDropdown.Item>
                 </NavDropdown>
-              </Col>
-            ) : null}
-
-            <Col sm={2}>
-              {isLoggedIn ? (
-                <Button variant="secondary" size="lg" as={NavLink} to="/logout">
-                  Logout
-                </Button>
               ) : (
-                <Button variant="secondary" size="lg" as={NavLink} to="/login">
+                <Button
+                  variant={darkMode ? "secondary" : "outline-secondary"}
+                  size="lg"
+                  as={NavLink}
+                  to="/login"
+                >
                   Login
                 </Button>
               )}
@@ -74,11 +78,23 @@ const Navhead = (props) => {
 
 const StyledNavbar = styled.nav`
   .btn {
-    margin: 1%;
+    margin: 5%;
+    padding: 5% 10%;
     font-size: 1.6rem;
+    font-weight: bold;
   }
-  .nav_row {
+  .btnd {
+    background: #6c757d;
+    border-color: #6c757d;
+  }
+  .btn:hover {
+    opacity: 80%;
+  }
+  .row {
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .navbar-brand {
     font-size: 3rem;
@@ -102,7 +118,7 @@ const StyledNavbar = styled.nav`
     width: 40px;
   }
   .toggle {
-    background: #212529;
+    background: black;
     border-radius: 50px;
     height: 18px;
     left: 0;
@@ -122,7 +138,8 @@ const StyledNavbar = styled.nav`
     font-size: 1.6rem;
   }
   .dropdown-menu.show {
-    background-color: silver;
+    background: #6c757d;
+    border-color: #6c757d;
   }
 `;
 

@@ -9,8 +9,14 @@ const Favorites = (props) => {
   return (
     <StyledFavorites>
       <Container fluid="true">
-        <Row className="justify-content-md-center">
-          <Col sm={10}>
+        <Row xxl xl lg md sm xs className="justify-content-center">
+          <Col>
+            <h1>Track your favorites here</h1>
+          </Col>
+        </Row>
+
+        <Row xxl xl lg md sm xs className="justify-content-center">
+          <Col xxl={10} xl={10} lg={10} md={10} sm={10} xs={10}>
             <table
               className={
                 darkMode

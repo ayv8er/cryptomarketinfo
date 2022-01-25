@@ -7,14 +7,14 @@ import { Formik } from "formik";
 import styled from "styled-components";
 
 const Login = (props) => {
-  const { togglePassword, showPassword } = props;
+  const { setToken, togglePassword, showPassword, darkMode } = props;
   let navigate = useNavigate();
 
   return (
     <StyledLogin>
       <Container fluid>
-        <Row className="justify-content-md-center">
-          <Col sm={6}>
+        <Row xxl xl lg md sm xs className="justify-content-center">
+          <Col xxl={6} xl={6} lg={6} md={6} sm={6} xs={10}>
             <Formik
               initialValues={{ email: "", password: "" }}
               validationSchema={loginSchema}
@@ -29,14 +29,13 @@ const Login = (props) => {
                     }
                   )
                   .then((res) => {
-                    localStorage.setItem("token", res.data.token);
+                    setToken(res.data.token);
                     navigate("/favorites");
                     resetForm();
                     setSubmitting(false);
-                    window.location.reload();
                   })
-                  .catch((err) => {
-                    console.log(err.message);
+                  .catch((res) => {
+                    console.log(res);
                   });
               }}
             >
@@ -81,7 +80,7 @@ const Login = (props) => {
                         }
                       />
                       <InputGroup.Text onClick={togglePassword}>
-                        Show Password
+                        Show
                       </InputGroup.Text>
                     </InputGroup>
                     {touched.password && errors.password ? (
@@ -91,7 +90,7 @@ const Login = (props) => {
                   <div className="d-grid gap-2">
                     <Button
                       className="continue-btn"
-                      variant="secondary"
+                      variant={darkMode ? "secondary" : "outline-secondary"}
                       size="lg"
                       type="submit"
                       disabled={isSubmitting || errors.email || errors.password}
@@ -104,12 +103,17 @@ const Login = (props) => {
             </Formik>
           </Col>
         </Row>
-        <Row className="justify-content-md-center">
-          <Col sm={3}>
+        <Row className="justify-content-center">
+          <Col xxl xl lg md sm xs>
             <div className="register">Don't have an account yet?</div>
           </Col>
-          <Col sm={3}>
-            <Button variant="secondary" size="lg" as={NavLink} to="/register">
+          <Col className="testing" xxl xl lg md sm xs>
+            <Button
+              variant={darkMode ? "secondary" : "outline-secondary"}
+              size="lg"
+              as={NavLink}
+              to="/register"
+            >
               Register
             </Button>
           </Col>
@@ -164,6 +168,10 @@ const StyledLogin = styled.div`
   .register {
     font-size: 1.6rem;
     text-align:right;
+  }
+  .testing {
+    display:flex;
+    justify-content: flex-start;
   }
 }
 `;
