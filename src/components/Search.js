@@ -29,8 +29,8 @@ const Search = (props) => {
 
 const StyledSearch = styled.div`
   .search_bar {
-    font-size: 1.6rem;
-    margin: 1% 0;
+    font-size: 1.8rem;
+    margin: 3% 0;
   }
 `;
 

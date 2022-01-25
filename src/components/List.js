@@ -24,6 +24,16 @@ const List = (props) => {
     );
   };
 
+  const tableHeaders = [
+    "#",
+    "Name",
+    "Price",
+    "24 %",
+    "Market Cap",
+    "Circulating Supply",
+    "Total Supply",
+  ];
+
   return (
     <StyledList>
       <table
@@ -36,13 +46,9 @@ const List = (props) => {
         <thead>
           <tr>
             {token ? <th></th> : null}
-            <th>#</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>24h %</th>
-            <th>Market Cap</th>
-            <th>Circulating Supply</th>
-            <th>Total Supply</th>
+            {tableHeaders.map((header, index) => (
+              <th key={index}>{header}</th>
+            ))}
           </tr>
         </thead>
         <tbody>
@@ -57,11 +63,15 @@ const List = (props) => {
 
 const StyledList = styled.div`
   .table {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
+  }
+  .table td {
+    padding: 2rem;
+    text-align: left;
   }
   @media screen and (max-width: 995px) {
     .table {
-      font-size: 1.4rem;
+      font-size: 1.6rem;
     }
   }
 `;

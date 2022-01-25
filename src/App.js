@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
 
 import Navhead from "./components/Navhead";
@@ -30,7 +30,11 @@ const App = () => {
           <Route path="/" element={<Body darkMode={darkMode} />} />
           <Route
             path="/favorites"
-            element={<Favorites darkMode={darkMode} />}
+            element={
+              <RequireAuth redirectTo="/login">
+                <Favorites darkMode={darkMode} />
+              </RequireAuth>
+            }
           />
           <Route
             path="/login"
@@ -60,6 +64,11 @@ const App = () => {
     </StyledApp>
   );
 };
+
+function RequireAuth({ children, redirectTo }) {
+  const { token } = useToken();
+  return token ? children : <Navigate to={redirectTo} />;
+}
 
 const StyledApp = styled.div`
   .App {

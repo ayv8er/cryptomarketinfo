@@ -48,10 +48,10 @@ const Navhead = (props) => {
                   id="basic-nav-dropdown"
                 >
                   <NavDropdown.Item as={NavLink} to="/">
-                    All Cryptocurrencies
+                    Main List
                   </NavDropdown.Item>
                   <NavDropdown.Item as={NavLink} to="/favorites">
-                    My Favorites
+                    My Favorites List
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item as={NavLink} to="/logout">
@@ -80,7 +80,7 @@ const StyledNavbar = styled.nav`
   .btn {
     margin: 5%;
     padding: 5% 10%;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     font-weight: bold;
   }
   .btnd {
@@ -107,7 +107,7 @@ const StyledNavbar = styled.nav`
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
   }
   .dark-mode__toggle {
     background: white;
