@@ -3,7 +3,9 @@ import { connect } from "react-redux";
 
 import Crypto from "./Crypto";
 
+import { Spinner } from "react-bootstrap";
 import styled from "styled-components";
+
 import { getCoinData } from "../actions/listAction";
 import useToken from "../hooks/useToken";
 
@@ -36,27 +38,31 @@ const List = (props) => {
 
   return (
     <StyledList>
-      <table
-        class={
-          darkMode
-            ? "table table-dark table-hover table-striped"
-            : "table table-light table-hover table-striped"
-        }
-      >
-        <thead>
-          <tr>
-            {token ? <th></th> : null}
-            {tableHeaders.map((header, index) => (
-              <th key={index}>{header}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {filteredList().map((crypto) => {
-            return <Crypto key={crypto.id} crypto={crypto} />;
-          })}
-        </tbody>
-      </table>
+      {props.isFetching ? (
+        <Spinner animation="grow" variant="primary" />
+      ) : (
+        <table
+          class={
+            darkMode
+              ? "table table-dark table-hover table-striped"
+              : "table table-light table-hover table-striped"
+          }
+        >
+          <thead>
+            <tr>
+              {token ? <th></th> : null}
+              {tableHeaders.map((header, index) => (
+                <th key={index}>{header}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {filteredList().map((crypto) => {
+              return <Crypto key={crypto.id} crypto={crypto} />;
+            })}
+          </tbody>
+        </table>
+      )}
     </StyledList>
   );
 };
