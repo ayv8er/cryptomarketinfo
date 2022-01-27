@@ -6,7 +6,7 @@ import Crypto from "./Crypto";
 import { Spinner } from "react-bootstrap";
 import styled from "styled-components";
 
-import { getCoinData } from "../actions/listAction";
+import { getCoinData } from "../actions/listsAction";
 import useToken from "../hooks/useToken";
 
 const List = (props) => {
@@ -84,7 +84,7 @@ const StyledList = styled.div`
 
 const mapStateToProps = (state) => {
   return {
-    cryptos: state.list.cryptos,
+    cryptos: state.lists.cryptos,
   };
 };
 

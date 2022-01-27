@@ -2,7 +2,7 @@ import {
   LOGIN_START,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-} from "../actions/userAction.js";
+} from "../actions/usersAction.js";
 
 const initialState = {
   user: [],

@@ -1,13 +1,22 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Row, Col, Form, Button, InputGroup } from "react-bootstrap";
-import { registerSchema } from "../validation/formSchema";
-import axios from "axios";
+import { connect } from "react-redux";
 import { Formik } from "formik";
+import { registerSchema } from "../validation/formSchema";
+import { register } from "../actions/usersAction";
+import { Container, Row, Col, Form, Button, InputGroup } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import styled from "styled-components";
 
 const Register = (props) => {
-  const { setToken, togglePassword, showPassword, darkMode } = props;
+  const {
+    register,
+    isLoggingIn,
+    setToken,
+    togglePassword,
+    showPassword,
+    darkMode,
+  } = props;
   let navigate = useNavigate();
 
   return (
@@ -15,123 +24,125 @@ const Register = (props) => {
       <Container fluid>
         <Row className="justify-content-center">
           <Col xxl={6} xl={6} lg={6} md={6} sm={6} xs={10}>
-            <Formik
-              initialValues={{ email: "", password: "", confirmPassword: "" }}
-              validationSchema={registerSchema}
-              onSubmit={async (values, { setSubmitting, resetForm }) => {
-                setSubmitting(true);
-                await axios
-                  .post(
-                    "https://crypto-backend-rjo.herokuapp.com/api/users/register",
-                    {
-                      user_email: values.email.toLowerCase(),
-                      user_password: values.password,
-                    }
-                  )
-                  .then((res) => {
-                    setToken(res.data.token);
-                    navigate("/favorites");
-                    resetForm();
-                    setSubmitting(false);
+            {isLoggingIn ? (
+              <Spinner animation="grow" variant="primary" />
+            ) : (
+              <Formik
+                initialValues={{ email: "", password: "", confirmPassword: "" }}
+                validationSchema={registerSchema}
+                onSubmit={async (values, { setSubmitting, resetForm }) => {
+                  setSubmitting(true);
+                  await register({
+                    user_email: values.email.toLowerCase(),
+                    user_password: values.password,
                   })
-                  .catch((err) => {
-                    console.log(err.message);
-                  });
-              }}
-            >
-              {({
-                values,
-                errors,
-                touched,
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                isSubmitting,
-              }) => (
-                <Form onSubmit={handleSubmit}>
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="email"
-                      placeholder="Enter email"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.email}
-                      className={touched.email && errors.email ? "error" : null}
-                    />
-                    {touched.email && errors.email ? (
-                      <div className="error-message">{errors.email}</div>
-                    ) : null}
-                  </Form.Group>
+                    .then((res) => {
+                      setToken(res.data.token);
+                      navigate("/favorites");
+                      resetForm();
+                      setSubmitting(false);
+                    })
+                    .catch((err) => {
+                      console.log(err.message);
+                    });
+                }}
+              >
+                {({
+                  values,
+                  errors,
+                  touched,
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  isSubmitting,
+                }) => (
+                  <Form onSubmit={handleSubmit}>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label>Email address</Form.Label>
+                      <Form.Control
+                        type="text"
+                        name="email"
+                        placeholder="Enter email"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.email}
+                        className={
+                          touched.email && errors.email ? "error" : null
+                        }
+                      />
+                      {touched.email && errors.email ? (
+                        <div className="error-message">{errors.email}</div>
+                      ) : null}
+                    </Form.Group>
 
-                  <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <InputGroup className="mb-3">
-                      <Form.Control
-                        type={showPassword ? "text" : "password"}
-                        name="password"
-                        placeholder="Enter password"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.password}
-                        className={
-                          touched.password && errors.password ? "error" : null
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                      <Form.Label>Password</Form.Label>
+                      <InputGroup className="mb-3">
+                        <Form.Control
+                          type={showPassword ? "text" : "password"}
+                          name="password"
+                          placeholder="Enter password"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.password}
+                          className={
+                            touched.password && errors.password ? "error" : null
+                          }
+                        />
+                        <InputGroup.Text onClick={togglePassword}>
+                          Show
+                        </InputGroup.Text>
+                      </InputGroup>
+                      {touched.password && errors.password ? (
+                        <div className="error-message">{errors.password}</div>
+                      ) : null}
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formPassword">
+                      <Form.Label>Confirm Password</Form.Label>
+                      <InputGroup className="mb-3">
+                        <Form.Control
+                          type={showPassword ? "text" : "password"}
+                          name="confirmPassword"
+                          placeholder="Re-enter password"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.confirmPassword}
+                          className={
+                            touched.confirmPassword && errors.confirmPassword
+                              ? "error"
+                              : null
+                          }
+                        />
+                        <InputGroup.Text onClick={togglePassword}>
+                          Show
+                        </InputGroup.Text>
+                      </InputGroup>
+                      {touched.confirmPassword && errors.confirmPassword ? (
+                        <div className="error-message">
+                          {errors.confirmPassword}
+                        </div>
+                      ) : null}
+                    </Form.Group>
+                    <div className="d-grid gap-2">
+                      <Button
+                        className="continue-btn"
+                        variant={darkMode ? "secondary" : "outline-secondary"}
+                        size="lg"
+                        type="submit"
+                        disabled={
+                          isSubmitting ||
+                          errors.email ||
+                          errors.password ||
+                          errors.confirmPassword
                         }
-                      />
-                      <InputGroup.Text onClick={togglePassword}>
-                        Show
-                      </InputGroup.Text>
-                    </InputGroup>
-                    {touched.password && errors.password ? (
-                      <div className="error-message">{errors.password}</div>
-                    ) : null}
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="formPassword">
-                    <Form.Label>Confirm Password</Form.Label>
-                    <InputGroup className="mb-3">
-                      <Form.Control
-                        type={showPassword ? "text" : "password"}
-                        name="confirmPassword"
-                        placeholder="Re-enter password"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.confirmPassword}
-                        className={
-                          touched.confirmPassword && errors.confirmPassword
-                            ? "error"
-                            : null
-                        }
-                      />
-                      <InputGroup.Text onClick={togglePassword}>
-                        Show
-                      </InputGroup.Text>
-                    </InputGroup>
-                    {touched.confirmPassword && errors.confirmPassword ? (
-                      <div className="error-message">
-                        {errors.confirmPassword}
-                      </div>
-                    ) : null}
-                  </Form.Group>
-                  <div className="d-grid gap-2">
-                    <Button
-                      className="continue-btn"
-                      variant={darkMode ? "secondary" : "outline-secondary"}
-                      size="lg"
-                      type="submit"
-                      disabled={
-                        isSubmitting ||
-                        errors.email ||
-                        errors.password ||
-                        errors.confirmPassword
-                      }
-                    >
-                      Create Account
-                    </Button>
-                  </div>
-                </Form>
-              )}
-            </Formik>
+                      >
+                        Create Account
+                      </Button>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
+            )}
           </Col>
         </Row>
       </Container>
@@ -188,4 +199,10 @@ const StyledLogin = styled.div`
   }
   `;
 
-export default Register;
+const mapStateToProps = (state) => {
+  return {
+    isLoggingIn: state.users.isLoggingIn,
+  };
+};
+
+export default connect(mapStateToProps, { register })(Register);
