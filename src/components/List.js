@@ -7,11 +7,9 @@ import { Spinner } from "react-bootstrap";
 import styled from "styled-components";
 
 import { getCoinData } from "../actions/listsAction";
-import useToken from "../hooks/useToken";
 
 const List = (props) => {
-  const { cryptos, getCoinData, darkMode, searchWord } = props;
-  const { token } = useToken();
+  const { token, cryptos, getCoinData, darkMode, searchWord } = props;
 
   useEffect(() => {
     getCoinData();
@@ -85,6 +83,7 @@ const StyledList = styled.div`
 const mapStateToProps = (state) => {
   return {
     cryptos: state.lists.cryptos,
+    token: state.users.token,
   };
 };
 

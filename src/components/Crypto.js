@@ -2,11 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { Button } from "reactstrap";
 import { addFavorites } from "../actions/favoritesAction";
-import useToken from "../hooks/useToken";
 
 const Crypto = (props) => {
-  const { token } = useToken();
-  const { crypto } = props;
+  const { crypto, token } = props;
 
   const handleClick = () => {
     props.addFavorites(props.crypto);
@@ -47,4 +45,10 @@ const Crypto = (props) => {
   );
 };
 
-export default connect(null, { addFavorites })(Crypto);
+const mapStateToProps = (state) => {
+  return {
+    token: state.users.token,
+  };
+};
+
+export default connect(mapStateToProps, { addFavorites })(Crypto);

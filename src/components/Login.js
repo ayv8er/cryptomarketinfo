@@ -20,112 +20,120 @@ const Login = (props) => {
     props;
   let navigate = useNavigate();
 
+  useEffect(() => {
+    if (token) {
+      navigate("/favorites", { replace: true });
+    }
+  }, [token, navigate]);
   return (
     <StyledLogin>
       <Container fluid>
         <Row xxl xl lg md sm xs className="justify-content-center">
           <Col xxl={6} xl={6} lg={6} md={6} sm={6} xs={10}>
-            {isLoggingIn ? (
-              <Spinner animation="grow" variant="primary" />
-            ) : (
-              <Formik
-                initialValues={{ email: "", password: "" }}
-                validationSchema={loginSchema}
-                onSubmit={(values, { setSubmitting, resetForm }) => {
-                  setSubmitting(true);
-                  login({
-                    user_email: values.email.toLowerCase(),
-                    user_password: values.password,
-                  });
-                  navigate("/favorites");
-                  resetForm();
-                  setSubmitting(false);
-                }}
-              >
-                {({
-                  values,
-                  errors,
-                  touched,
-                  handleChange,
-                  handleBlur,
-                  handleSubmit,
-                  isSubmitting,
-                }) => (
-                  <Form onSubmit={handleSubmit}>
-                    <Form.Group className="mb-3" controlId="formEmail">
-                      <Form.Label>Email address</Form.Label>
+            <Formik
+              initialValues={{ email: "", password: "" }}
+              validationSchema={loginSchema}
+              onSubmit={(values, { setSubmitting, resetForm }) => {
+                setSubmitting(true);
+                login({
+                  user_email: values.email.toLowerCase(),
+                  user_password: values.password,
+                });
+                resetForm();
+                setSubmitting(false);
+              }}
+            >
+              {({
+                values,
+                errors,
+                touched,
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                isSubmitting,
+              }) => (
+                <Form onSubmit={handleSubmit}>
+                  <Form.Group className="mb-3" controlId="formEmail">
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="email"
+                      placeholder="Enter email"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.email}
+                      className={touched.email && errors.email ? "error" : null}
+                    />
+                    {touched.email && errors.email ? (
+                      <div className="error-message">{errors.email}</div>
+                    ) : null}
+                  </Form.Group>
+
+                  <Form.Group className="mb-3" controlId="formPassword">
+                    <Form.Label>Password</Form.Label>
+                    <InputGroup className="mb-3">
                       <Form.Control
-                        type="text"
-                        name="email"
-                        placeholder="Enter email"
+                        type={showPassword ? "text" : "password"}
+                        name="password"
+                        placeholder="Enter password"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.email}
+                        value={values.password}
                         className={
-                          touched.email && errors.email ? "error" : null
+                          touched.password && errors.password ? "error" : null
                         }
                       />
-                      {touched.email && errors.email ? (
-                        <div className="error-message">{errors.email}</div>
-                      ) : null}
-                    </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="formPassword">
-                      <Form.Label>Password</Form.Label>
-                      <InputGroup className="mb-3">
-                        <Form.Control
-                          type={showPassword ? "text" : "password"}
-                          name="password"
-                          placeholder="Enter password"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.password}
-                          className={
-                            touched.password && errors.password ? "error" : null
-                          }
-                        />
-                        <InputGroup.Text onClick={togglePassword}>
-                          Show
-                        </InputGroup.Text>
-                      </InputGroup>
-                      {touched.password && errors.password ? (
-                        <div className="error-message">{errors.password}</div>
-                      ) : null}
-                    </Form.Group>
-                    <div className="d-grid gap-2">
-                      <Button
-                        className="continue-btn"
-                        variant={darkMode ? "secondary" : "outline-secondary"}
-                        size="lg"
-                        type="submit"
-                        disabled={
-                          isSubmitting || errors.email || errors.password
-                        }
-                      >
-                        Continue
-                      </Button>
-                    </div>
-                  </Form>
-                )}
-              </Formik>
-            )}
+                      <InputGroup.Text onClick={togglePassword}>
+                        Show
+                      </InputGroup.Text>
+                    </InputGroup>
+                    {touched.password && errors.password ? (
+                      <div className="error-message">{errors.password}</div>
+                    ) : null}
+                  </Form.Group>
+                  <div className="d-grid gap-2">
+                    <Button
+                      className="continue-btn"
+                      variant={darkMode ? "secondary" : "outline-secondary"}
+                      size="lg"
+                      type="submit"
+                      disabled={
+                        isSubmitting ||
+                        errors.email ||
+                        errors.password ||
+                        isLoggingIn
+                      }
+                    >
+                      Continue
+                    </Button>
+                  </div>
+                </Form>
+              )}
+            </Formik>
           </Col>
         </Row>
-        <Row className="justify-content-center">
-          <Col xxl xl lg md sm xs>
-            <div className="register">Don't have an account yet?</div>
-          </Col>
-          <Col className="testing" xxl xl lg md sm xs>
-            <Button
-              variant={darkMode ? "secondary" : "outline-secondary"}
-              size="lg"
-              as={NavLink}
-              to="/register"
-            >
-              Register
-            </Button>
-          </Col>
-        </Row>
+        {isLoggingIn ? (
+          <Row className="justify-content-center">
+            <Col xxl={1} xl={1} lg={1} md={1} sm={1} xs={1}>
+              <Spinner size="lg" animation="grow" variant="primary" />
+            </Col>
+          </Row>
+        ) : (
+          <Row className="justify-content-center">
+            <Col xxl xl lg md sm xs>
+              <div className="register">Don't have an account yet?</div>
+            </Col>
+            <Col className="testing" xxl xl lg md sm xs>
+              <Button
+                variant={darkMode ? "secondary" : "outline-secondary"}
+                as={NavLink}
+                to="/register"
+              >
+                Register
+              </Button>
+            </Col>
+          </Row>
+        )}
       </Container>
     </StyledLogin>
   );

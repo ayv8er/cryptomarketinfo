@@ -15,6 +15,7 @@ export const register = (data) => {
       })
       .catch((err) => {
         console.log(err);
+        loginFail(err);
       });
   };
 };
@@ -25,12 +26,12 @@ export const login = (data) => {
     axios
       .post("https://crypto-backend-rjo.herokuapp.com/api/users/login", data)
       .then((res) => {
-        console.log(res);
         localStorage.setItem("token", res.data.token);
         dispatch(loginSuccess(res.data));
       })
       .catch((err) => {
         console.log(err);
+        loginFail(err);
       });
   };
 };
