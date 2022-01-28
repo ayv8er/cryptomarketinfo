@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import {
@@ -143,4 +144,10 @@ const StyledNavbar = styled.nav`
   }
 `;
 
-export default Navhead;
+const mapStateToProps = (state) => {
+  return {
+    token: state.users.token,
+  };
+};
+
+export default connect(mapStateToProps, null)(Navhead);

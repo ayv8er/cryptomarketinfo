@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { searchCrypto } from "../actions/listAction";
+import { searchCrypto } from "../actions/listsAction";
 import styled from "styled-components";
 
 const Search = (props) => {
@@ -36,7 +36,7 @@ const StyledSearch = styled.div`
 
 const mapStateToProps = (state) => {
   return {
-    cryptos: state.list.cryptos,
+    cryptos: state.lists.cryptos,
   };
 };
 

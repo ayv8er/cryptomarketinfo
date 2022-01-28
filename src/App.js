@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import { Routes, Route } from "react-router-dom";
 
 import Navhead from "./components/Navhead";
 import Body from "./components/Body";
@@ -8,13 +7,14 @@ import Login from "./components/Login";
 import Logout from "./components/Logout";
 import Register from "./components/Register";
 import Favorites from "./components/Favorites";
+import RequireAuth from "./utils/requireAuth";
 
-import useToken from "./hooks/useToken";
 import useDarkMode from "./hooks/useDarkMode";
+
 import styled from "styled-components";
+import { Container } from "react-bootstrap";
 
 const App = () => {
-  const { token, setToken } = useToken();
   const [darkMode, setDarkMode] = useDarkMode(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -25,7 +25,7 @@ const App = () => {
   return (
     <StyledApp>
       <Container fluid="true" className={darkMode ? "dark-mode App" : "App"}>
-        <Navhead token={token} darkMode={darkMode} setDarkMode={setDarkMode} />
+        <Navhead darkMode={darkMode} setDarkMode={setDarkMode} />
         <Routes>
           <Route path="/" element={<Body darkMode={darkMode} />} />
           <Route
@@ -43,7 +43,6 @@ const App = () => {
                 darkMode={darkMode}
                 togglePassword={togglePassword}
                 showPassword={showPassword}
-                setToken={setToken}
               />
             }
           />
@@ -54,7 +53,6 @@ const App = () => {
                 darkMode={darkMode}
                 togglePassword={togglePassword}
                 showPassword={showPassword}
-                setToken={setToken}
               />
             }
           />
@@ -64,11 +62,6 @@ const App = () => {
     </StyledApp>
   );
 };
-
-function RequireAuth({ children, redirectTo }) {
-  const { token } = useToken();
-  return token ? children : <Navigate to={redirectTo} />;
-}
 
 const StyledApp = styled.div`
   .App {

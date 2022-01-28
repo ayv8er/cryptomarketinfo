@@ -3,7 +3,7 @@ import {
   FETCH_SUCCESS,
   FETCH_FAIL,
   SEARCH_CRYPTO,
-} from "../actions/listAction.js";
+} from "../actions/listsAction.js";
 
 const initialState = {
   cryptos: [],

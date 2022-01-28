@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
-import listReducer from "./listReducer";
+import listsReducer from "./listsReducer";
 import favoritesReducer from "./favoritesReducer";
+import usersReducer from "./usersReducer";
 
 export default combineReducers({
-  list: listReducer,
+  lists: listsReducer,
   favorites: favoritesReducer,
+  users: usersReducer,
 });

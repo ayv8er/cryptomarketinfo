@@ -1,15 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Container, Row, Col, Form, Button, InputGroup } from "react-bootstrap";
-import { loginSchema } from "../validation/formSchema";
-import axios from "axios";
+import { connect } from "react-redux";
 import { Formik } from "formik";
+import { loginSchema } from "../validation/formSchema";
+import { login } from "../actions/usersAction";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  InputGroup,
+  Spinner,
+} from "react-bootstrap";
 import styled from "styled-components";
 
 const Login = (props) => {
-  const { setToken, togglePassword, showPassword, darkMode } = props;
+  const { token, isLoggingIn, login, togglePassword, showPassword, darkMode } =
+    props;
   let navigate = useNavigate();
 
+  useEffect(() => {
+    if (token) {
+      navigate("/favorites", { replace: true });
+    }
+  }, [token, navigate]);
   return (
     <StyledLogin>
       <Container fluid>
@@ -18,25 +33,14 @@ const Login = (props) => {
             <Formik
               initialValues={{ email: "", password: "" }}
               validationSchema={loginSchema}
-              onSubmit={async (values, { setSubmitting, resetForm }) => {
+              onSubmit={(values, { setSubmitting, resetForm }) => {
                 setSubmitting(true);
-                await axios
-                  .post(
-                    "https://crypto-backend-rjo.herokuapp.com/api/users/login",
-                    {
-                      user_email: values.email.toLowerCase(),
-                      user_password: values.password,
-                    }
-                  )
-                  .then((res) => {
-                    setToken(res.data.token);
-                    navigate("/favorites");
-                    resetForm();
-                    setSubmitting(false);
-                  })
-                  .catch((res) => {
-                    console.log(res);
-                  });
+                login({
+                  user_email: values.email.toLowerCase(),
+                  user_password: values.password,
+                });
+                resetForm();
+                setSubmitting(false);
               }}
             >
               {({
@@ -93,7 +97,12 @@ const Login = (props) => {
                       variant={darkMode ? "secondary" : "outline-secondary"}
                       size="lg"
                       type="submit"
-                      disabled={isSubmitting || errors.email || errors.password}
+                      disabled={
+                        isSubmitting ||
+                        errors.email ||
+                        errors.password ||
+                        isLoggingIn
+                      }
                     >
                       Continue
                     </Button>
@@ -103,21 +112,28 @@ const Login = (props) => {
             </Formik>
           </Col>
         </Row>
-        <Row className="justify-content-center">
-          <Col xxl xl lg md sm xs>
-            <div className="register">Don't have an account yet?</div>
-          </Col>
-          <Col className="testing" xxl xl lg md sm xs>
-            <Button
-              variant={darkMode ? "secondary" : "outline-secondary"}
-              size="lg"
-              as={NavLink}
-              to="/register"
-            >
-              Register
-            </Button>
-          </Col>
-        </Row>
+        {isLoggingIn ? (
+          <Row className="justify-content-center">
+            <Col xxl={1} xl={1} lg={1} md={1} sm={1} xs={1}>
+              <Spinner size="lg" animation="grow" variant="primary" />
+            </Col>
+          </Row>
+        ) : (
+          <Row className="justify-content-center">
+            <Col xxl xl lg md sm xs>
+              <div className="register">Don't have an account yet?</div>
+            </Col>
+            <Col className="testing" xxl xl lg md sm xs>
+              <Button
+                variant={darkMode ? "secondary" : "outline-secondary"}
+                as={NavLink}
+                to="/register"
+              >
+                Register
+              </Button>
+            </Col>
+          </Row>
+        )}
       </Container>
     </StyledLogin>
   );
@@ -176,4 +192,11 @@ const StyledLogin = styled.div`
 }
 `;
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+    isLoggingIn: state.users.isLoggingIn,
+    token: state.users.token,
+  };
+};
+
+export default connect(mapStateToProps, { login })(Login);

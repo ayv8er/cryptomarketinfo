@@ -1,42 +1,52 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Row, Col, Form, Button, InputGroup } from "react-bootstrap";
-import { registerSchema } from "../validation/formSchema";
-import axios from "axios";
+import { connect } from "react-redux";
 import { Formik } from "formik";
+import { registerSchema } from "../validation/formSchema";
+import { register } from "../actions/usersAction";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  InputGroup,
+  Spinner,
+} from "react-bootstrap";
 import styled from "styled-components";
 
 const Register = (props) => {
-  const { setToken, togglePassword, showPassword, darkMode } = props;
+  const {
+    token,
+    isLoggingIn,
+    register,
+    togglePassword,
+    showPassword,
+    darkMode,
+  } = props;
   let navigate = useNavigate();
+  useEffect(() => {
+    if (token) {
+      navigate("/favorites", { replace: true });
+    }
+  }, [token, navigate]);
 
   return (
-    <StyledLogin>
+    <StyledRegister>
       <Container fluid>
         <Row className="justify-content-center">
           <Col xxl={6} xl={6} lg={6} md={6} sm={6} xs={10}>
             <Formik
               initialValues={{ email: "", password: "", confirmPassword: "" }}
               validationSchema={registerSchema}
-              onSubmit={async (values, { setSubmitting, resetForm }) => {
+              onSubmit={(values, { setSubmitting, resetForm }) => {
                 setSubmitting(true);
-                await axios
-                  .post(
-                    "https://crypto-backend-rjo.herokuapp.com/api/users/register",
-                    {
-                      user_email: values.email.toLowerCase(),
-                      user_password: values.password,
-                    }
-                  )
-                  .then((res) => {
-                    setToken(res.data.token);
-                    navigate("/favorites");
-                    resetForm();
-                    setSubmitting(false);
-                  })
-                  .catch((err) => {
-                    console.log(err.message);
-                  });
+                register({
+                  user_email: values.email.toLowerCase(),
+                  user_password: values.password,
+                });
+                resetForm();
+                setSubmitting(false);
               }}
             >
               {({
@@ -123,7 +133,8 @@ const Register = (props) => {
                         isSubmitting ||
                         errors.email ||
                         errors.password ||
-                        errors.confirmPassword
+                        errors.confirmPassword ||
+                        isLoggingIn
                       }
                     >
                       Create Account
@@ -134,12 +145,19 @@ const Register = (props) => {
             </Formik>
           </Col>
         </Row>
+        {isLoggingIn ? (
+          <Row className="justify-content-center">
+            <Col xxl={1} xl={1} lg={1} md={1} sm={1} xs={1}>
+              <Spinner animation="grow" variant="primary" />
+            </Col>
+          </Row>
+        ) : null}
       </Container>
-    </StyledLogin>
+    </StyledRegister>
   );
 };
 
-const StyledLogin = styled.div`
+const StyledRegister = styled.div`
     .error {
       border: 2px solid red;
     }
@@ -188,4 +206,11 @@ const StyledLogin = styled.div`
   }
   `;
 
-export default Register;
+const mapStateToProps = (state) => {
+  return {
+    isLoggingIn: state.users.isLoggingIn,
+    token: state.users.token,
+  };
+};
+
+export default connect(mapStateToProps, { register })(Register);
