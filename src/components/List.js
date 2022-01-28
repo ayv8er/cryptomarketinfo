@@ -42,7 +42,7 @@ const List = (props) => {
         <Spinner animation="grow" variant="primary" />
       ) : (
         <table
-          class={
+          className={
             darkMode
               ? "table table-dark table-hover table-striped"
               : "table table-light table-hover table-striped"

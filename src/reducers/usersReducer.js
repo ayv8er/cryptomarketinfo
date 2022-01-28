@@ -8,6 +8,7 @@ const initialState = {
   user: [],
   isLoggingIn: false,
   error: "",
+  token: "",
 };
 
 const reducer = (state = initialState, action) => {
@@ -16,14 +17,14 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isLoggingIn: true,
-        error: "",
       };
     case LOGIN_SUCCESS:
       return {
         ...state,
-        user: action.payload,
+        user: action.payload.message,
         isLoggingIn: false,
         error: "",
+        token: action.payload.token,
       };
     case LOGIN_FAIL:
       return {

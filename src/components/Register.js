@@ -4,19 +4,21 @@ import { connect } from "react-redux";
 import { Formik } from "formik";
 import { registerSchema } from "../validation/formSchema";
 import { register } from "../actions/usersAction";
-import { Container, Row, Col, Form, Button, InputGroup } from "react-bootstrap";
-import { Spinner } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  InputGroup,
+  Spinner,
+} from "react-bootstrap";
 import styled from "styled-components";
 
 const Register = (props) => {
-  const {
-    register,
-    isLoggingIn,
-    setToken,
-    togglePassword,
-    showPassword,
-    darkMode,
-  } = props;
+  const { register, isLoggingIn, togglePassword, showPassword, darkMode } =
+    props;
+
   let navigate = useNavigate();
 
   return (
@@ -30,21 +32,15 @@ const Register = (props) => {
               <Formik
                 initialValues={{ email: "", password: "", confirmPassword: "" }}
                 validationSchema={registerSchema}
-                onSubmit={async (values, { setSubmitting, resetForm }) => {
+                onSubmit={(values, { setSubmitting, resetForm }) => {
                   setSubmitting(true);
-                  await register({
+                  register({
                     user_email: values.email.toLowerCase(),
                     user_password: values.password,
-                  })
-                    .then((res) => {
-                      setToken(res.data.token);
-                      navigate("/favorites");
-                      resetForm();
-                      setSubmitting(false);
-                    })
-                    .catch((err) => {
-                      console.log(err.message);
-                    });
+                  });
+                  navigate("/favorites");
+                  resetForm();
+                  setSubmitting(false);
                 }}
               >
                 {({
@@ -202,6 +198,7 @@ const StyledLogin = styled.div`
 const mapStateToProps = (state) => {
   return {
     isLoggingIn: state.users.isLoggingIn,
+    token: state.users.token,
   };
 };
 
