@@ -3,6 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 
 import List from "./List";
 import Search from "./Search";
+// import IncreaseList from "./IncreaseList";
 
 import styled from "styled-components";
 
@@ -14,7 +15,10 @@ const Body = (props) => {
     <StyledBody>
       <Container fluid="true">
         <Row xxl xl lg md sm xs className="justify-content-center">
-          <Col xxl={10} xl={10} lg={10} md={10} sm={10} xs={10}>
+          {/* <Col xxl={4} xl={4} lg={4} md={4} sm={4} xs={4}>
+            <IncreaseList darkMode={darkMode} />
+          </Col>{" "} */}
+          <Col xxl={6} xl={6} lg={6} md={6} sm={6} xs={6}>
             <Search searchWord={searchWord} setSearchWord={setSearchWord} />
           </Col>
         </Row>

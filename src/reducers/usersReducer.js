@@ -8,7 +8,7 @@ const initialState = {
   user: [],
   isLoggingIn: false,
   error: "",
-  token: "",
+  token: undefined,
 };
 
 const reducer = (state = initialState, action) => {

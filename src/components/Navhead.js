@@ -12,7 +12,7 @@ import {
 } from "react-bootstrap";
 
 const Navhead = (props) => {
-  const { token, darkMode, setDarkMode } = props;
+  const { token, darkMode, setDarkMode, cryptos } = props;
 
   const toggleMode = (e) => {
     e.preventDefault();
@@ -21,7 +21,7 @@ const Navhead = (props) => {
 
   return (
     <StyledNavbar>
-      <Navbar sticky="top">
+      <Navbar>
         <Container fluid>
           <Row>
             <Col sm={2} className="nav_item_container">
@@ -33,8 +33,10 @@ const Navhead = (props) => {
                 />
               </div>
             </Col>
-            <Col sm={8} className={darkMode ? "dark" : null}>
-              <Navbar.Brand href="/">Crypto Market Cap</Navbar.Brand>
+            <Col sm={7} className={darkMode ? "dark" : null}>
+              <Navbar.Brand href="/">
+                Top {cryptos.length} Crypto Market Cap
+              </Navbar.Brand>
             </Col>
 
             <Col sm={2}>
@@ -142,11 +144,20 @@ const StyledNavbar = styled.nav`
     background: #6c757d;
     border-color: #6c757d;
   }
+  @media screen and (max-width: 600px) {
+    .btn {
+      margin: 5%;
+      padding: 2% 5%;
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+  }
 `;
 
 const mapStateToProps = (state) => {
   return {
     token: state.users.token,
+    cryptos: state.lists.cryptos,
   };
 };
 
