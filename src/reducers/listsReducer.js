@@ -1,12 +1,13 @@
 import {
   FETCH_START,
   FETCH_SUCCESS,
+  ADD_FETCH_SUCCESS,
   FETCH_FAIL,
-  SEARCH_CRYPTO,
 } from "../actions/listsAction.js";
 
 const initialState = {
   cryptos: [],
+  page: 0,
   isFetching: false,
   error: "",
 };
@@ -23,6 +24,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         cryptos: action.payload,
+        page: 1,
+        isFetching: false,
+        error: "",
+      };
+    case ADD_FETCH_SUCCESS:
+      return {
+        cryptos: [...state.cryptos, ...action.payload],
         isFetching: false,
         error: "",
       };
@@ -32,19 +40,6 @@ const reducer = (state = initialState, action) => {
         cryptos: [],
         isFetching: false,
         error: action.payload,
-      };
-    case SEARCH_CRYPTO:
-      if (action.payload === "") {
-        return state;
-      }
-      return {
-        ...state,
-        cryptos: state.cryptos.map((item) => {
-          const searchWord = action.payload.toLowerCase();
-          return item.name.toLowerCase() === searchWord;
-        }),
-        isFetching: false,
-        error: "",
       };
     default:
       return state;

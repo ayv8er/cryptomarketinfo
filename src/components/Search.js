@@ -1,7 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-
-import { searchCrypto } from "../actions/listsAction";
 import styled from "styled-components";
 
 const Search = (props) => {
@@ -18,7 +16,7 @@ const Search = (props) => {
         <input
           name="search"
           type="text"
-          placeholder="Search a Crypto"
+          placeholder="Search the list"
           value={searchWord}
           onChange={handleChange}
         />
@@ -29,8 +27,11 @@ const Search = (props) => {
 
 const StyledSearch = styled.div`
   .search_bar {
+    display: flex;
+    // justify-content: flex-start;
+    justify-content: center;
     font-size: 1.8rem;
-    margin: 3% 0;
+    margin: 5%;
   }
 `;
 
@@ -40,4 +41,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { searchCrypto })(Search);
+export default connect(mapStateToProps, null)(Search);
